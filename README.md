@@ -27,7 +27,7 @@ true_value if 조건 else false_value
 - \*  : * 바로 앞의 문자가 0회 이상 반복되는 것과 매치
 
     Q. ca\*t라면? A.ct, cat, caaat모두 매치
-- +   : + 바로 앞의 문자가 1회 이상 반복되는 것과 매치
+- \+   : + 바로 앞의 문자가 1회 이상 반복되는 것과 매치
 
     Q. ca+t라면? A.cat, caaat와 매치, ct는 X
 - {}  : 반복횟수 지정.
