@@ -17,7 +17,7 @@ true_value if 조건 else false_value
 배운 것
 1. 정규 표현식에 대한 개념 다시 정리
 - []  : []사이의 문자들 중 하나와 매치. []사이의 문자들은 ^를 제외한 어떤 것도 사용 가능함. 
-- -   : 두 문자 사이의 범위 전체와 매치.
+- \-   : 두 문자 사이의 범위 전체와 매치.
 - ^   : []안에서는 조건의 부정, 밖에서는 문자열의 시작을 뜻함.
 - \d  : 숫자와 매치
 - \D  : 숫자가 아닌 것과 매치
@@ -42,3 +42,15 @@ true_value if 조건 else false_value
 
 
 2. Re.sub(pattern, repl, string)
+------------
+
+### Day3.
+##### 20220427_숫자_문자열과_영단어_Lv1.py
+배운 것
+- re.sub은 엄밀히 따지면 정규표현식을 위한 함수고, string은 string.replace(old, new)로도 대체가 가능하다. 
+- 이 때 old, new를 각각 key, value로 가지는 dict를 만들어두면
+```
+for key, value in dict.items():
+    string = string.replace(key, value)
+```
+형태로 깔끔하게 정리가 가능하다.
