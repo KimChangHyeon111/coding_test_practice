@@ -54,3 +54,10 @@ for key, value in dict.items():
     string = string.replace(key, value)
 ```
 형태로 깔끔하게 정리가 가능하다.
+
+--------------
+### Day5.
+##### 20220429_스킬체크_Lv1.py
+배운 것
+- int형의 객체는 len이 먹지 않음. len(str(6))을 써야 정상적으로 길이를 확인할 수 있음.
+- 오늘까지 Lv1 마무리 하고 다음주 부터는 Lv2를 풀어보자.
