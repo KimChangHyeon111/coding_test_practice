@@ -78,3 +78,47 @@ a*4
 b*4
 > array([ 4,  8, 12, 16])
 ```
+--------------
+### Day6.
+##### 20220501_더_맵게_Lv2.py
+배운 것
+- 최소힙은 별도의 자료 구조는 아니고 heapq 모듈을 통해 원소를 추가 / 삭제한 리스트를 말함.
+- 최소힙은 언제나 원소들이 정렬된 상태로 추가 / 삭제되며, 가장 작은 값이 인덱스 0에 위치함.
+- 최소힙은 자체적으로 정렬이 되는 기능이 있기 때문에 list.remove(min(list))에 대비해 연산의 시간 복잡도 측면에서 이득을 가짐 (o(log(N)))
+- 최소힙은 이진트리 기반이기 때문에, 부모 - 자식간의 대소 구분은 확실하지만, 자식간의 대소는 그렇지 않음. 즉, head[0]은 최소이나, heap[1]은 두 번째로 작은 숫자가 아닐 수 있음. 따라서 두 번째 작은 원소를 얻으려면 heappop으로 가장 작은 원소를 제거하고, 다시 heap[0]으로 접근해야 함.
+- 힙은 리스트와 비슷하게 함수를 적용하면 원래의 힙이 update되는 식임. pop을 적용하면 return은 pop된 원소고, 원래의 list에서는 그 값이 빠지는 것도 동일.
+- 힙에 튜플이 원소로 추가 / 삭제되면 튜플 내의 맨 앞의 값을 기준으로 최소 힙을 생성
+
+```python
+# 리스트 힙으로 변환
+import heapq
+heap = [4,1,7,3,8,5]
+heapq.heapify(heap)
+> [1, 3, 5, 4, 8, 7]
+
+# 힙에 원소 추가
+heap = []
+heapq.heappush(heap, 4)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 7)
+heapq.heappush(heap, 3)
+print(heap)
+> [1, 3, 7, 4] 
+# 보다시피 index 3에 위치한 4는 index 1에 위치한 3보다는 작기 때문에 Tree level에서는 문제가 되지 않음. 다만 전체가 정렬이 되어있는 것이 아니라는 것을 다시 확인 가능.
+
+# 힙에서 가장 작은 원소 제거
+print(heapq.heappop(heap))
+print(heap)
+1
+[3, 4, 7]
+
+# 최대 힙
+nums = [4, 1, 7, 3, 8, 5]
+heap = []
+
+for num in nums:
+  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+
+while heap:
+  print(heapq.heappop(heap)[1])  # index 1
+```
