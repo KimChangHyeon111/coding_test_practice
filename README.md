@@ -122,3 +122,28 @@ for num in nums:
 while heap:
   print(heapq.heappop(heap)[1])  # index 1
 ```
+--------------
+### Day7.
+##### 20220503_가장_큰_수_Lv2.py
+배운 것
+- `dict(zip(a,b))`하면 set 취급을 받아 중복 원소가 제거됨
+- `itertools.permutations`는 O(N^2)의 시간복잡도를 가져 코테용으로는 매우 부적합
+- list.sort에서 key = lambda 적용 가능. 굳이 index를 찾고, argsort를 하고 할 필요가 없음. 
+```
+>>> numbers = [11,22,33,44,5]
+>>> numbers = list(map(str, numbers))
+>>> numbers.sort(key = lambda x : x*3, reverse = True)
+>>> numbers
+['5', '44', '33', '22', '11']
+```
+- 위의 사례처럼 문자열 비교는 [0]번째 값의 ASCII코드부터 비교됨. 
+- input 변수의 길이나 생김새를 꼭 잘 보자. 좀 더 멋지게 풀 수 있을지도. 
+- functools.cmp_to_key를 통해 특수한 정렬을 사용하자
+```
+def comparator(a,b):
+    t1 = a+b
+    t2 = b+a
+    return (int(t1) > int(t2)) - (int(t1) < int(t2)) #  t1이 크다면 1  // t2가 크다면 -1  //  같으면 0
+# 2개의 값을 붙여서 크기를 비교하는 문제였으니, 일반적인 비교 연산으로는 불가능해서 이처럼 별개의 비교연산함수를 생성해준다.
+# -1은 앞서서 들어온, 즉 a가 먼저 나온다는 것이고, 1은 나중에 들어온, 즉 b가 먼저 나온다는 것이다.
+```
