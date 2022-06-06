@@ -210,7 +210,7 @@ https://www.youtube.com/watch?v=2zjoKjt97vQ
 
 ----------------------------------------------------------------------
 ### Day12.
-##### 20220524_DFS_1_동빈나_강의.py
+##### 20220524_DFS_동빈나_강의.py
 배운 것
 https://www.youtube.com/watch?v=7C9RgOcvkvo
 
@@ -302,3 +302,73 @@ def dfs(graph, v, visited):
 dfs(graph, 1, visited)            
 
 ```
+
+----------------------------------------------------------------------
+### Day13.
+##### 20220525_BFS_동빈나_강의.py
+배운 것
+https://www.youtube.com/watch?v=7C9RgOcvkvo
+
+#### BFS
+- 가까운 노드부터 먼저 탐색하는 알고리즘
+- 큐 자료구조 활용함
+- 최단 경로! 그래프의 depth! 탐색 문제에 많이 사용함. 
+
+1. 시작 노드를 큐에 넣고 방문 처리
+2. 큐에서 그 노드를 다시 꺼낸 뒤에 해당 노드의 인접 노드 중 방문하지 않은 노드를 모두! 큐에 넣고 방문 처리
+3. 2.를 못할 때 까지 반복
+```
+# 구현
+# BFS는 queue 자료구조를 사용하기 때문에 deque를 import!
+from collections import deque
+
+# 각 노드가 연결된 정보
+graph = [
+    [], #첫 graph는 빈칸
+    [2,3,8], # 1번 노드가 연결된 노드
+    [1,7],
+    [1,4,5],
+    [3,5],
+    [3,4],
+    [7],
+    [2,6,8],
+    [1,7] # 8번 노드가 연결된 노드
+] 
+
+# 각 노드가 방문된 정보
+visited = [False] * 9 
+
+# dfs 함수 정의
+def bfs(graph, v, visited):
+    '''
+    graph   : 노드 연결 정보
+    v       : 탐색 시작 노드
+    visited : 노드 방문 정보
+    '''
+    # 1-1. 큐 생성하고, 시작 노드 큐에 삽입
+    queue = deque([v])
+    
+    # 1-2. 그 노드 방문 처리
+    visited[v] = True
+
+    # 반복
+    while queue: # 3. 2.가 더는 불가능 할 때까지!
+        v = queue.popleft() # 2-1. queue에서 넣었던 노드를 꺼내고
+        print(v, end = ' ')
+        
+        for i in graph[v]: # 2-2. 인접한 모든 노드에 대해
+            if not visited[i] : #2-3. 방문하지 않았다면
+                queue.append(i) #2-4. 큐에 넣고
+                visited[i] = True  #2-5. 방문처리하라!
+
+dfs(graph, 1, visited)            
+
+```
+
+#### 문제풀이
+배운 것
+- 일단 bfs가 depth / 최단경로 등의 문제에 쓰인다는 것은 알겠음. 그 외의 상황에서는 좀 해봐야 알 듯? 뭐가 나을지?
+- dfs / bfs가 이해는 되는데, 막상 문제에 적용하려니까 너무 빡셈...문제를 많이 풀어봐야 할 거 같음. 
+- dfs는 재귀적 호출을 통해, bfs는 while을 통해 구현하는 경향이 있는듯?
+- visited가 필수적인 것은 아니라는 점도 확인해 두면 좋을 듯. 
+- 내일부터 greedy와 bfs / dfs문제 열심히 풀어보자.
