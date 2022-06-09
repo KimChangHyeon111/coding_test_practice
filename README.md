@@ -406,3 +406,39 @@ for i in range(len(graph)):
 ```
 - 저 graph를 만드는 과정에서 sorting을 절대 잊지 말 것. 
 - 그 외에 뭐...False * (N+1)이 아니라 [False] * (N+1)이라는 걸 헷갈리지 말 것 정도?
+
+----------------------------------------------------------------------
+### Day16.
+##### 20220608_백준_BFS_단지번호붙이기.py
+배운 것
+- continue와 pass의 차이!
+```
+# pass는 실행할 것이 아무 것도 없다는 것을 의미한다. 사실상 없는 것과 차이가 없다
+# continue는 다음 순번의 loop을 실행한다.
+
+for i in range(1, 5):
+    if i == 2:
+        print("ready")
+        pass
+        print("go")
+    print(i)
+
+> 1
+> ready
+> go
+> 2
+> 3
+> 4
+
+for i in range(1, 5):
+    if i == 2:
+        print("ready")
+        continue
+        print("go")
+    print(i)
+> 1
+> ready
+> 3
+> 4
+```
+- 그 외에 BFS / DFS는 좀 더 봐야 익숙해질듯
