@@ -494,3 +494,25 @@ for i in range(1, N + 1):
             bfs(graph, i, visited)  # 해당 i를 시작노드로 bfs를 돈다.
             count += 1  # 연결요소 를 +1개 해준다
 ```
+----------------------------------------------------------------------
+### Day20.
+##### 20220621_타겟넘버_Lv2.py
+배운 것
+- DFS, BFS는 단순히 예쁘게 노드와 노드 간의 연결을 나타낸 데이터만 쓸 수 있는 게 아님.
+- visited같은 데이터가 없으면 아예 직접 idx를 만들어줘도 되는 것. 이탈조건만 잘 찾아준다면 말이지. 이런 응용 형태의 D/BFS문제 많이 풀어보자.
+- 또 프로그래머스처럼 아예 solution을 함수 형태로 만들어야 한다면 함수 내부의 함수와 nonlocal을 잘 이용해보자
+```
+def solution(numbers, target):
+    ans = 0
+    def dfs(idx, result):
+        if idx == len(numbers):
+            if result == target:
+                nonlocal ans # 바로 이렇게, 보다 high level에서 지정된 변수를 업데이트할 때 사용가능.
+                ans += 1
+        else :
+            dfs(idx +1, result + numbers[idx])
+            dfs(idx +1, result - numbers[idx])
+        return ans
+    dfs(0,0)
+    return ans  
+```
