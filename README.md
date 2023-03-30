@@ -648,3 +648,10 @@ for i in range(len(count)):
 ```
 - 때에 따라서 데이터의 범위가 너무 큰 경우는 제대로 작동하기 힘듦. 
 - 반면 성적 같이, 해당 범위는 한정적이고 정렬할 값의 중복은 많은 경우 쓰기 좋음.
+
+- 이진탐색 : 정렬된 데이터 대해, 아주 넓은 범위의 값을 반씩 짤라가면서 탐색하는 로직
+```
+from bisect import bisect_left, bisect_right
+
+# bisect_left(array, x) : 정렬 유지하면서 array에 x를 삽입할 가장 왼쪽 index반환! right도 마찬가지.
+```
