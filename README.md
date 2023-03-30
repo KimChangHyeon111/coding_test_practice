@@ -549,3 +549,102 @@ def solution(numbers, target):
 - 애매하면 그냥 loop을 돌리는 판단 좋았음. 근데 나중에는 이러면 안되겠지만...
 - 결국에는 bfs또 이거임. 양궁대회는 bfs인지도 몰랐음;
 - 더 풀어야지...백준으로 돌아갈 시간임.
+
+----------------------------------------------------------------------
+
+### Day...오랜만.
+##### 깃허브 연동이 풀렸고...노트북은 다시 반납해야 하는 슬픈 미래
+배운 것
+- 선택 정렬 : 매번 처리하지 않은 데이터 중 가장 작은 데이터를 선택해 맨 앞의 값과 비교, 작다면 바꿔주는 것
+- Python에서는 이중 반복문으로 선택 정렬을 구현할 수 있음
+```
+for i in range(len(array)):
+    min_index = i
+    for j in range(i+1, len(array)):
+        if array[min_index] > array[j]:
+            min_index = j
+    array[i], array[min_index] = array[min_index], array[i]
+```
+- N 번만큼 가장 작은 수를 찾아서 맨 앞으로 보내야 함. 즉 N번 정렬하고, n-1번 정렬하고... 따라서 등차수열의 함에 따라 O(N^2)의 시간 복잡도를 가짐
+- 삽입 정렬 : 처리되지 않은 데이터를 하나 골라 적합한 위치에 삽입. 선택 정렬에 비해 구현이 좀 더 어렵지만, 좀더 보통 빠름.
+- 첫 원소는 정렬이 되어있다고 판단하고, 두 번째 데이터가 첫 원소의 왼쪽인지 오른쪽인지 판단하는 것을 반복.
+- 마찬가지로 이중 반복문으로 구현 가능.
+
+```
+for i in range(1, len(array)):
+    for j in range(i, 0, -1)): # i부터 1까지 자리를 계속 바꿈
+        if array[j] < array[j-1]: # 자기보다 크면 자리 바꾸면서 계속 이
+            array[j], array[j-1] = array[j-1], array[j]
+        else:
+            break # 자기보다 작으면 스탑
+```
+- 두 번 중첩되니 기본적으로 O(N^2)의 시간 복잡도를 가지나, 최선의 경우, 즉 거의 정렬이 된 경우 O(N)이 됨. 
+
+- 퀵정렬 : 기준 데이터를 설정하고, 기준보다 큰 데이터와 작은 데이터의 위치를 바꾸는 방법
+- 기본적인 퀵 정렬은 첫 데이터를 Pivot으로 기준데이터로 사용.
+- 첫 번째 데이터를 기준으로 잡고, 왼쪽에서는 그보다 큰 값을, 오른쪽에서는 그보다 작은 값을 찾고 그 둘의 위치를 바꿈. 
+- 반복함. 그러다가 왼쪽에서부터의 데이터와 오른쪽에서부터의 데이터의 위치가 엇갈렸을 경우, 작은 데아터와 피벗의 위치를 바꿈. 
+- 이제 바꾼 데이터를 기준으로 왼쪽 / 오른쪽을 각각 정렬함. 
+- 평균 O(NlogN)의 시간복잡도를 가짐.
+
+```
+def quick_sort(array, start, end):
+    if start > = end:
+        return
+     pivot = start
+     left = start + 1
+     right = end
+     
+     while(left <= right):
+        # 피벗보다 큰 데이터를 찾을 때 까지 반복
+        while(left <= end and array[left] <= array[pivot]):
+            left += 1
+        # 오른쪽은 피벗보다 작은 데이터를 찾을 때까지 반복
+        while(right > start and array[right] >= array[pivot]):
+            right -= 1
+        
+        # 엇갈렸다면, 작은 데이터와 피벗을 교체
+        if left > right:
+            array[right], array[pivot] = array[pivot], array[right]
+        # 아니라면 작은 데이터와 큰 데이터를 교체
+        else:
+            array[right], array[left] = array[left], array[right]
+            
+    # 분할 이후, 좌우에서 다시 정렬 수행
+    quick_sort(array, start, right-1)
+    quick_sort(array, right+1, end)
+```
+
+- 좀 더 pythonic 하게 구현하면 아래와 같이 구현할 수 있음
+```
+def quick_sort(array):
+    if len(array) <= 1:
+        return array
+    pivot = array[0]
+    tail = array[1:]
+    
+    left_side = [x for x in tail if x <= pivot]
+    right_side = [x for x in tail if x > pivot]
+    
+    # 분할 이후 각각 정렬 후 전체 반환
+    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+```
+
+- 계수정렬 : 특정 조건이 부합하면 아주 빠른 알고리즘. 데이터으 크기 범위가 정수 형태로 표현할 수 있을 때 사용
+- 데이터의 개수가 N, 최대값이 K일 때, 최악의 경우에도 O(N+K)
+- 가장 작은 데이터부터, 가장 큰 데이터까지 범위가 전부 담길 수 있도록 리스트 생성.
+- 각각의 데이터가 속한 인덱스에 데이터가 몇 번씩 존재하는지를 확인해서, 그 위치의 계수를 증가시킴
+- 그리고 그 인덱스에 해당하는 count만큼 그 인덱스를 출력하는 것. 
+
+```
+count = [0] * (max(array) + 1)
+
+for i in range(len(array)):
+    count[array[i]] += 1
+
+for i in range(len(count)):
+    for j in range(count(i)):
+        print(i, end = ' ')
+```
+- 때에 따라서 데이터의 범위가 너무 큰 경우는 제대로 작동하기 힘듦. 
+- 반면 성적 같이, 해당 범위는 한정적이고 정렬할 값의 중복은 많은 경우 쓰기 좋음.
