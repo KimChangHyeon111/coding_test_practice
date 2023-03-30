@@ -655,3 +655,5 @@ from bisect import bisect_left, bisect_right
 
 # bisect_left(array, x) : 정렬 유지하면서 array에 x를 삽입할 가장 왼쪽 index반환! right도 마찬가지.
 ```
+- 입국심사 문제 다시 풀어보자
+https://school.programmers.co.kr/questions/46032
