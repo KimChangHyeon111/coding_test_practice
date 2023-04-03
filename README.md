@@ -657,3 +657,46 @@ from bisect import bisect_left, bisect_right
 ```
 - 입국심사 문제 다시 풀어보자
 https://school.programmers.co.kr/questions/46032
+----------------------------------------------------------------------
+
+### Day...오랜만2
+##### 깃허브 연동이 풀렸고...노트북은 다시 반납해야 해서 일단 그냥 대충 한다.
+배운 것
+- Programmers 미로 탈출
+- https://school.programmers.co.kr/learn/courses/30/lessons/150365#qna
+- 풀지 못해따. BFS까지는 떠올렸는데, 순서대로 정렬하고 break를 쓴다는 생각은 못했다.
+```
+from collections import deque
+def solution(n, m, x, y, r, c, k):
+    answer = ''
+    q = deque([(x,y,"",0)])
+    dt = [(1,0,'d'),(0,-1,'l'),(0,1,'r'),(-1,0,'u')]
+    # 일단 먼저 r,c 에보내기
+    while q:
+        x,y,path,cnt = q.popleft()
+        if (x,y) == (r,c) and (k - cnt ) % 2 == 1:
+            return "impossible"
+        if (x,y) == (r,c) and cnt == k:
+            return path
+        
+        # 범위를 벗어나거나, 도착하지 않는 선에서, dt에서 가장 빠른 순으로 뽑아내는 것
+        for i in range(4):
+            dx,dy,direction = dt[i]
+            nx = x + dx
+            ny = y + dy
+            
+            # 범위를 벗어났을 경우
+            if nx <= 0 or nx > n or ny <= 0 or ny > m:
+                continue
+            
+            # K보다 많이 이동했을 경우
+            if abs(nx - r) + abs(ny - c) + cnt + 1 > k:
+                continue
+            
+            # 둘 다 아니면
+            q.append((nx,ny,path + direction,cnt + 1))
+            
+            # 어차피 둘 다 아니라면, 빠른 순으로 정렬되어 있기 때문에, 이걸 굳이 더 들어가서 볼 필요가 없음.
+            break
+    return "impossible"
+```
