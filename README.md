@@ -49,7 +49,7 @@ true_value if 조건 else false_value
 배운 것
 - re.sub은 엄밀히 따지면 정규표현식을 위한 함수고, string은 string.replace(old, new)로도 대체가 가능하다. 
 - 이 때 old, new를 각각 key, value로 가지는 dict를 만들어두면
-```
+```python
 for key, value in dict.items():
     string = string.replace(key, value)
 ```
@@ -69,7 +69,7 @@ for key, value in dict.items():
 - math.ceil, np.ceil등이 가능하지만, 둘 다 막혔다면 //1을 이용하자. //1은 기본적으로 내림의 기능을 가지고 있으므로. 반대로 -(-float//1)는 올림과 같다. (오늘의 감탄 포인트)
 - 이 과제 역시 비교 대상이 되는 잔여 일자와 최종적으로 한번에 배포되는 기능 2가지의 값을 지속적으로 가져야 하기 때문에 zip을 떠올렸어야 한다
 - np.array는 element wise operation을 지원하지만 list는 아니다. list의 경우 +는 그냥 append, \*는 rep의 기능을 갖는다.
-```
+```python
 a = [1,2,3,4]
 b = np.array(a)
 a*4
@@ -129,7 +129,7 @@ while heap:
 - `dict(zip(a,b))`하면 set 취급을 받아 중복 원소가 제거됨
 - `itertools.permutations`는 O(N^2)의 시간복잡도를 가져 코테용으로는 매우 부적합
 - list.sort에서 key = lambda 적용 가능. 굳이 index를 찾고, argsort를 하고 할 필요가 없음. 
-```
+```python
 >>> numbers = [11,22,33,44,5]
 >>> numbers = list(map(str, numbers))
 >>> numbers.sort(key = lambda x : x*3, reverse = True)
@@ -139,7 +139,7 @@ while heap:
 - 위의 사례처럼 문자열 비교는 [0]번째 값의 ASCII코드부터 비교됨. 
 - input 변수의 길이나 생김새를 꼭 잘 보자. 좀 더 멋지게 풀 수 있을지도. 
 - functools.cmp_to_key를 통해 특수한 정렬을 사용하자
-```
+```python
 def comparator(a,b):
     t1 = a+b
     t2 = b+a
@@ -152,7 +152,7 @@ def comparator(a,b):
 ##### 20220504_124_나라의_숫자_Lv2.py
 배운 것
 - divmod함수를 통해 몫과 나머지를 한번에 객체로 반환할 수 있다. 
-```
+```python
 몫, 나머지 = divmod(나누어질 수, 나눌 수)
 ```
 - 재귀함수와 재귀문의 시간 복잡도에 대해서는...다시 공부해봐야겠다. 못 찾겠다.
@@ -162,7 +162,7 @@ def comparator(a,b):
 ### Day9.
 ##### 20220509_오픈채팅방_Lv2.py
 배운 것
-```
+```python
 dict.update({key:new_value})
 # 이렇게 key에 해당하는 value를 업데이트 해줄 수 있고, key가 없는 값이라면 새로 넣을 수도 있음
 
@@ -172,7 +172,7 @@ str.endswith('string')
 ```
 - dict에 대해 동일 key에 대해 복수의 value가 들어가면 나중에 들어온 값으로 업데이트 되는 듯.
 
-```
+```python
 record = ["Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo", "Change uid4567 Ryan"]
 id={info.split()[1]:info.split()[2] for info in record if info.split()[0]!="Leave"}
 id
@@ -185,7 +185,7 @@ id
 배운 것
 
 - 자꾸 리스트 인덱싱 하려고 하지 말고 list comprehension에 if 조건을 써서 만드는 연습을 하자
-```
+```python
 [str1[i:i+2].lower() for i in range(0, len(str1)-1) if not re.findall('[^a-zA-Z]+', str1[i:i+2])] #이런 식으로
 ```
 - ```set(str1) & set(str2)```, ```set(str1) | set(str2)```이런 식으로 교 / 합집합을 구할 수 있다. 다만 set이니까 중복 제거되는 건 감안해야 한다.
@@ -218,7 +218,7 @@ https://www.youtube.com/watch?v=7C9RgOcvkvo
 - Stack : 먼저 들어온 데이터가 나중에 나가는 구조. 선입 후출. 
 - list로 구현 가능. append()와 pop()으로 가장 오른쪽에서 넣고 뺄 수 있음. 
 - Que : 먼저 들어온 데이터가 먼저 나가는 구조. 선입 선출
-```
+```python
 from collections import deque
 que = deque()
 que.append(), que.popleft() #로 구현 가능. 
@@ -227,14 +227,14 @@ que.append(), que.popleft() #로 구현 가능.
 #### 재귀함수
 - DFS에 자주 사용. 자기 스스로를 자꾸 호출하는 함수.
 - '재귀함수를 호출합니다'를 자꾸 호출하는 함수를 만든다면
-```
+```python
 def recursive_function():
     print('재귀함수를 호출합니다')
     recursive_function()
 ```
 - 이런 재귀함수는 일종의 stack이라 메모리에 함수가 순서대로 stack되고, 마지막 함수부터 순서대로 종료되는 형태임. 
 - 무한루프가 목적이 아니라면, 종료 조건을 주는 게 좋다.
-```
+```python
 # stack과 종료조건
 def r_f2(i):
     if i == 100:
@@ -264,7 +264,7 @@ def gcd(a,b):
 2. 스택 최상단 노드에 방문하지 않은 인접 노드가 있으면 그걸 스택에 넣고 방문처리. 없다면 최상단 노드 스택에서 제거
 3. 2가 불가능할 때 까지 반복
 
-```
+```python
 # 구현
 
 # 각 노드가 연결된 정보
@@ -317,7 +317,7 @@ https://www.youtube.com/watch?v=7C9RgOcvkvo
 1. 시작 노드를 큐에 넣고 방문 처리
 2. 큐에서 그 노드를 다시 꺼낸 뒤에 해당 노드의 인접 노드 중 방문하지 않은 노드를 모두! 큐에 넣고 방문 처리
 3. 2.를 못할 때 까지 반복
-```
+```python
 # 구현
 # BFS는 queue 자료구조를 사용하기 때문에 deque를 import!
 from collections import deque
@@ -387,7 +387,7 @@ dfs(graph, 1, visited)
 ##### 20220607_백준_DFS_DFS와 BFS.py
 배운 것
 - 일단 for에서 `_`의 쓰임
-```
+```python
 # 예를 들어 dfs / bfs 문제에서 graph에 대한 정보가 노드별로 연결된 형태가 아니라, 연결된 애들끼리 값을 주어서 변환하고 싶다면
 # 그래서 노드개 + 1개의 빈 리스트를 만들고 싶다면
 
@@ -412,7 +412,7 @@ for i in range(len(graph)):
 ##### 20220608_백준_BFS_단지번호붙이기.py
 배운 것
 - continue와 pass의 차이!
-```
+```python
 # pass는 실행할 것이 아무 것도 없다는 것을 의미한다. 사실상 없는 것과 차이가 없다
 # continue는 다음 순번의 loop을 실행한다.
 
@@ -450,7 +450,7 @@ for i in range(1, 5):
 - DFS / BFS를 위한 그래프 데이터를 만들 때, 나는 노드 별 connected 된 노드의 리스트가 있는 것이 좋다. 
 - 이를 위해서는 아래의 코드를 사용해야 한다. 자연스럽게 쓸 수 있도록 숙달해두자.
 
-```
+```python
 graph = [[] for _ in range(n)]
 for i in range(m):
     a, b = map(int, input.split())
@@ -465,7 +465,7 @@ for i in range(m):
 배운 것
 - 이처럼 걸리는 시간 / 날짜를 구하는 문제는 BFS로 푸는 게 맞다. 
 - 그 과정에서 graph의 값에 +1을 해가며 MAX를 구하는 식으로 구하자.
-```
+```python
 # 기존 BFS 코드에서 사용했던 것보다 더 효율적인 코드가 있어서 수정한다
 
 # 기존
@@ -484,7 +484,7 @@ if 0<= nx < N and 0<= ny < M and graph[nx][ny] == 0:
 배운 것
 - 그래프 만드는 코드에서 graph[a] = b가 아니라 graph[a].append(b)다. 헷갈리지 말자
 - 아무것도 연결되어있지 않는 노드도 하나의 연결 요소다. 빼먹고 not graph조건을 까먹지 말자.
-```
+```python
 for i in range(1, N + 1):
     if not visited[i]:  # 만약 방문하지 않았다면
         if not graph[i]:  # 만약 그래프가 비어있다면, 즉 지혼자 하나의 연결요소라면! 이거 까먹지 말자.
@@ -501,7 +501,7 @@ for i in range(1, N + 1):
 - DFS, BFS는 단순히 예쁘게 노드와 노드 간의 연결을 나타낸 데이터만 쓸 수 있는 게 아님.
 - visited같은 데이터가 없으면 아예 직접 idx를 만들어줘도 되는 것. 이탈조건만 잘 찾아준다면 말이지. 이런 응용 형태의 D/BFS문제 많이 풀어보자.
 - 또 프로그래머스처럼 아예 solution을 함수 형태로 만들어야 한다면 함수 내부의 함수와 nonlocal을 잘 이용해보자
-```
+```python
 def solution(numbers, target):
     ans = 0
     def dfs(idx, result):
@@ -557,7 +557,7 @@ def solution(numbers, target):
 배운 것
 - 선택 정렬 : 매번 처리하지 않은 데이터 중 가장 작은 데이터를 선택해 맨 앞의 값과 비교, 작다면 바꿔주는 것
 - Python에서는 이중 반복문으로 선택 정렬을 구현할 수 있음
-```
+```python
 for i in range(len(array)):
     min_index = i
     for j in range(i+1, len(array)):
@@ -570,7 +570,7 @@ for i in range(len(array)):
 - 첫 원소는 정렬이 되어있다고 판단하고, 두 번째 데이터가 첫 원소의 왼쪽인지 오른쪽인지 판단하는 것을 반복.
 - 마찬가지로 이중 반복문으로 구현 가능.
 
-```
+```python
 for i in range(1, len(array)):
     for j in range(i, 0, -1)): # i부터 1까지 자리를 계속 바꿈
         if array[j] < array[j-1]: # 자기보다 크면 자리 바꾸면서 계속 이
@@ -587,7 +587,7 @@ for i in range(1, len(array)):
 - 이제 바꾼 데이터를 기준으로 왼쪽 / 오른쪽을 각각 정렬함. 
 - 평균 O(NlogN)의 시간복잡도를 가짐.
 
-```
+```python
 def quick_sort(array, start, end):
     if start > = end:
         return
@@ -616,7 +616,7 @@ def quick_sort(array, start, end):
 ```
 
 - 좀 더 pythonic 하게 구현하면 아래와 같이 구현할 수 있음
-```
+```python
 def quick_sort(array):
     if len(array) <= 1:
         return array
@@ -636,7 +636,7 @@ def quick_sort(array):
 - 각각의 데이터가 속한 인덱스에 데이터가 몇 번씩 존재하는지를 확인해서, 그 위치의 계수를 증가시킴
 - 그리고 그 인덱스에 해당하는 count만큼 그 인덱스를 출력하는 것. 
 
-```
+```python
 count = [0] * (max(array) + 1)
 
 for i in range(len(array)):
@@ -650,7 +650,7 @@ for i in range(len(count)):
 - 반면 성적 같이, 해당 범위는 한정적이고 정렬할 값의 중복은 많은 경우 쓰기 좋음.
 
 - 이진탐색 : 정렬된 데이터 대해, 아주 넓은 범위의 값을 반씩 짤라가면서 탐색하는 로직
-```
+```python
 from bisect import bisect_left, bisect_right
 
 # bisect_left(array, x) : 정렬 유지하면서 array에 x를 삽입할 가장 왼쪽 index반환! right도 마찬가지.
@@ -665,7 +665,7 @@ https://school.programmers.co.kr/questions/46032
 - Programmers 미로 탈출
 - https://school.programmers.co.kr/learn/courses/30/lessons/150365#qna
 - 풀지 못해따. BFS까지는 떠올렸는데, 순서대로 정렬하고 break를 쓴다는 생각은 못했다.
-```
+```python
 from collections import deque
 def solution(n, m, x, y, r, c, k):
     answer = ''
